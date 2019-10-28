@@ -37,4 +37,12 @@ public class JFrameDisplay extends JFrame{
 	public void set(int row,int col,boolean status) {
 		jRadioButton[row][col].setSelected(status);
 	}
+	
+	public void setOff() {
+		for (int i = 0; i < jRadioButton.length; i++) {
+			for (int j = 0; j < jRadioButton[i].length; j++) {
+				set(i, j, false);
+			}
+		}
+	}
 }
