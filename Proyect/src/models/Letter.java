@@ -40,8 +40,9 @@ public class Letter {
 			case 'X': return getLetterX();
 			case 'Y': return getLetterY();
 			case 'Z': return getLetterZ();
+			case'!': return point();
 			default:
-				System.out.println("La letra no existe");
+				System.out.println("La letra no existe por el momento");
 				return null;
 			}
 		}
@@ -62,6 +63,14 @@ public class Letter {
 			}
 		}
 		
+		private void setVerticalInverse(int[][] matriz,int position,int divided) {
+			for (int i = 0; i < matriz.length; i++) {
+				for (int j = 0; j < matriz[i].length; j++) {
+					matriz[matriz.length-1-i][position/divided] = 1;
+				}
+			}
+		}
+		
 		private void setDiagonal(int[][] matriz,int position) {
 			int count = 0;
 			for (int i = 0; i < matriz.length-count-position; i++) {
@@ -74,9 +83,9 @@ public class Letter {
 		
 		//Esta en prueba la diagonal inversa
 		private void setDiagonalInverse(int[][] matriz,int position) {
-			int count = matriz.length;
+			int count = 0;
 			for (int i = 0; i < matriz.length-count-position; i++) {
-				for (int j = 0; j < matriz[i].length-position; j++) {
+				for (int j = matriz[i].length-position-1; j >= 0 ; j--) {
 					matriz[(i+count)+position][j] = 1;
 					count++;
 				}
@@ -110,6 +119,9 @@ public class Letter {
 		private int[][] getLetterD(){
 			int[][] d = new int[width][heigt];
 			setHorizontal(d,0,1);
+			setVertical(d, 1, 1);
+			setHorizontal(d,width-1,1);
+			setVertical(d, heigt-1, 1);
 			return d;
 		}
 		
@@ -172,6 +184,10 @@ public class Letter {
 		
 		private int[][] getLetterM(){
 			int[][] m = new int[width][heigt];
+			setVertical(m, 0, 1);
+			setVertical(m, width-1, 1);
+			setHorizontal(m, 0, 1);
+			setVertical(m, (width-1)/2, 1);
 			return m;
 		}
 		
@@ -185,6 +201,10 @@ public class Letter {
 		
 		private int[][] getLetterO(){
 			int[][] o = new int[width][heigt];
+			setVertical(o, 0, 1);
+			setVertical(o, heigt-1, 1);
+			setHorizontal(o, 0, 1);
+			setHorizontal(o, o.length-1, 1);
 			return o;
 		}
 		
@@ -211,8 +231,8 @@ public class Letter {
 			int[][] s = new int[width][heigt];
 			setHorizontal(s,0,1);
 			setVertical(s,0,2);
+			//setVertical(s, (heigt-1),2);
 			setHorizontal(s,width/2,1);
-			//To do...
 			setHorizontal(s,width-1,1);
 			return s;
 		}
@@ -226,6 +246,9 @@ public class Letter {
 		
 		private int[][] getLetterU(){
 			int[][] u = new int[width][heigt];
+			setVertical(u,0,1);
+			setHorizontal(u,width-1,1);
+			setVertical(u,heigt-1,1);
 			return u;
 		}
 		
@@ -236,11 +259,17 @@ public class Letter {
 		
 		private int[][] getLetterW(){
 			int[][] w = new int[width][heigt];
+			setVertical(w, 0, 1);
+			setVertical(w, width-1, 1);
+			setHorizontal(w, heigt-1, 1);
+			setVertical(w, (width-1)/2, 1);
 			return w;
 		}
 		
 		private int[][] getLetterX(){
 			int[][] x = new int[width][heigt];
+			setDiagonal(x,0);
+			setDiagonalInverse(x,0);
 			return x;
 		}
 		
@@ -251,6 +280,15 @@ public class Letter {
 		
 		private int[][] getLetterZ(){
 			int[][] z = new int[width][heigt];
+			setHorizontal(z,0,1);
+			setDiagonalInverse(z,0);
+			setHorizontal(z,width-1,1);
 			return z;
+		}
+		
+		private int[][] point(){
+			int[][] point = new int[width][heigt];
+			setVertical(point, (width-1)/2, 2);
+			return point;
 		}
 }
